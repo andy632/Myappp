@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,54 +29,79 @@ public class SecondActivity extends ActionBarActivity {
 
     }
 
-    public void saveInternalCache(View view){
+    public void loadInternalCache(View view){
 //        Toast.makeText(getBaseContext() , "In Internal", Toast.LENGTH_SHORT).show();
-        String data = edit.getText().toString();
         File folder = getCacheDir();
         File myfile =  new File(folder , "mydata1.txt");
-        writeData(myfile , data);
+        String data = readData(myfile);
+        if(data!=null){
+            edit.setText(data);
+        }else{
+            edit.setText("No data was returned");
+        }
+
+
     }
 
-    public void saveExternalCache(View view){
+    public void loadExternalCache(View view){
         //Toast.makeText(getBaseContext() , "In External", Toast.LENGTH_SHORT).show();
-        String data = edit.getText().toString();
         File folder = getExternalCacheDir();
         File myfile =  new File(folder , "mydata2.txt");
-        writeData(myfile , data);
+        String data = readData(myfile);
+        last(data);
     }
 
-    public void savePrivateExternalFile(View view){
+    public void loadPrivateExternalFile(View view){
 //        Toast.makeText(getBaseContext() , "In pvt" ,Toast.LENGTH_SHORT).show();
-        String data = edit.getText().toString();
         File folder = getExternalFilesDir("Anish");
         File myfile =  new File(folder , "mydata3.txt");
-        writeData(myfile , data);
+        String data = readData(myfile);
+        last(data);
     }
 
-    public void savePublicExternalFile(View view){
+    public void loadPublicExternalFile(View view){
 //        Toast.makeText(getBaseContext() , "In public" ,Toast.LENGTH_SHORT).show();
-        String data = edit.getText().toString();
+//        String data = edit.getText().toString();
         File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File myfile =  new File(folder , "mydata4.txt");
-        writeData(myfile , data);
+//        readData(myfile);
+        String data = readData(myfile);
+        last(data);
     }
 
-    public void writeData(File myfile , String data){
-        FileOutputStream fos = null;
+    public String readData(File myfile ){
+        FileInputStream fis = null;
+
         try {
-            fos = new FileOutputStream(myfile);
-            fos.write(data.getBytes());
-            message(data+" was written succesfully to "+myfile.getAbsolutePath());
+            fis = new FileInputStream(myfile);
+            int read = -1;
+            StringBuffer str = new StringBuffer();
+            while((read = fis.read()) != -1){
+                str.append((char)read);
+            }
+            return str.toString();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        }
+        finally{
+            if(fis != null){
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+        return null;
+    }
+
+    public void last(String data){
+        if(data!=null){
+            edit.setText(data);
+        }else{
+            edit.setText("No data was returned");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.xxample.anish.myapplication;
 
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -58,6 +59,10 @@ public class MainActivity extends ActionBarActivity {
         File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File myfile =  new File(folder , "mydata4.txt");
         writeData(myfile , data);
+    }
+
+    public void Next(View view){
+        startActivity(new Intent(MainActivity.this , SecondActivity.class));
     }
 
     public void writeData(File myfile , String data){

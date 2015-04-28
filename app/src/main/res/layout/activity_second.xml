@@ -20,7 +20,7 @@
         android:id="@+id/button"
         android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
-        android:onClick="saveInternalCache" />
+        android:onClick="loadInternalCache" />
 
     <Button
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:id="@+id/button2"
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
-        android:onClick="saveExternalCache" />
+        android:onClick="loadExternalCache" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:onClick="savePrivateExternalFile" />
+        android:onClick="loadPrivateExternalFile" />
 
     <Button
         android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
         android:id="@+id/button4"
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:onClick="savePublicExternalFile" />
+        android:onClick="loadPublicExternalFile" />
 
     <Button
         android:layout_width="wrap_content"
